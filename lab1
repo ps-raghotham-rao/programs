@@ -49,7 +49,6 @@ $cbr1 set packetSize_ 500Mb
 
 $cbr1 set interval_ 0.005
 
-#finish procedure
 
 proc finish { } {
 global ns nf tf
