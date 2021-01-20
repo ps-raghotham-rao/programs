@@ -1,0 +1,82 @@
+import java.util.*;
+import java.net.*;
+import java.io.*;
+import java.math.*;
+import java.security.*;
+
+public class BellmanFord{
+    public static void main(String args[]) throws Exception{
+        int MAX=999;
+        System.out.println("Enter number of nodes");
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        int a[][] = new int[n+1][n+1];
+        System.out.println("Enter adjancency matrix");
+        for(int i = 1;i<=n;i++)
+            for(int j = 1;j<=n;j++)
+                a[i][j]=sc.nextInt();
+        for(int i = 1;i<=n;i++)
+            for(int j = 1;j<=n;j++){
+                if (i == j){
+                    a[i][j]=0;
+                    continue;
+                }
+                if(a[i][j]==0){
+                 a[i][j]= MAX;   
+                }
+            }
+
+            System.out.println();
+            System.out.println();
+
+        for(int i = 1;i<=n;i++){
+            for(int j = 1;j<=n;j++)
+                System.out.print(a[i][j]+" ");
+            System.out.println();
+        }
+        
+        System.out.println("Enter source vertex");
+        int source = sc.nextInt();
+        int d[] = new int[n+1];
+        for(int i = 1;i<n+1;i++){
+            d[i] = MAX;
+        }
+        d[source] = 0;
+        for(int i = 1;i<n+1;i++){
+            System.out.print(d[i]+" ");
+        }
+        System.out.println();
+
+        for (int l = 0;l<n-1;l++){
+            for(int i = 1;i<=n;i++){
+                for(int j = 1;j<=n;j++){
+                    if (a[i][j] != MAX){
+                    if(d[i]+a[i][j]<d[j]){
+                        d[j] = d[i] + a[i][j];
+                    }
+                }   
+
+                }
+                    
+            }
+        }
+
+        for(int i = 1;i<=n;i++){
+            for(int j = 1;j<=n;j++){
+                if (a[i][j] != MAX){
+                if(d[i]+a[i][j]<d[j]){
+                    System.out.println("Negative loop found!");
+                }
+            }   
+
+            }
+        }
+
+        System.out.println();
+        for(int i = 1;i<=n;i++){
+                System.out.println("From "+source+" to "+i+" "+d[i]+" ");
+        }
+
+        
+    }
+}
